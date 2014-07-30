@@ -143,6 +143,16 @@ Arbiter.prototype.alertObjects = function(alertList, id1,id2){
     }
 }
 
+Arbiter.prototype.getDistanceById = function(callerId, targetId){
+    if(callerId === undefined || targetId === undefined){
+        return;
+    }
+    else if(!this.locations[callerId] || !this.locations[targetId]){
+        return;
+    }
+    return Arbiter.getDistance(this.locations[callerId], this.locations[targetId]);
+}
+
 Arbiter.prototype.getById = function(id){
     if(id !== undefined && this.locations[id]){
         return this.locations[id];
