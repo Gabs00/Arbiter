@@ -56,6 +56,7 @@ Arbiter.prototype.addRanges = function(id, ranges){
         self.ranges[v[0]][v[1]].push([id, v[2]]);
     });
 };
+
 Arbiter.prototype.checkDistance = function(id){
     //How do we check this distances?
         //locate the coordinates of provided id
@@ -143,6 +144,10 @@ Arbiter.prototype.alertObjects = function(alertList, id1,id2){
 }
 Arbiter.prototype.getMap = function(){
     return this.locations;
+}
+
+Arbiter.prototype.getById = function(id){
+    return this.locations[id];
 }
 
 Arbiter.getDistance = function(coord1, coord2){
