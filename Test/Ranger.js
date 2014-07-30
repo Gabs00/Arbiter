@@ -1,4 +1,6 @@
 
+
+//A test class to use with Arbiter
 var Ranger = function(x,y,name, arbiter){
     this.name = name;
     this.x = x;
