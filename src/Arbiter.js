@@ -142,12 +142,21 @@ Arbiter.prototype.alertObjects = function(alertList, id1,id2){
         }
     }
 }
-Arbiter.prototype.getMap = function(){
-    return this.locations;
-}
 
 Arbiter.prototype.getById = function(id){
-    return this.locations[id];
+    if(id !== undefined && this.locations[id]){
+        return this.locations[id];
+    }
+}
+
+Arbiter.prototype.getAllById = function(id){
+    if(id !== undefined && this.locations[id]){
+        return {
+            'id': id,
+            'coords': this.getById(id),
+            'object': this.objects[id]
+        }
+    }
 }
 
 Arbiter.getDistance = function(coord1, coord2){
