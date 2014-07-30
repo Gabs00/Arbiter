@@ -143,6 +143,25 @@ Arbiter.prototype.alertObjects = function(alertList, id1,id2){
     }
 }
 
+Arbiter.prototype.getByDistanceX = function(callerId, distance){
+    if(callerId === undefined || distance === undefined || this.locaitons[callerId] === undefined){
+        return;
+    }
+    var keys = Object.keys(this.locations);
+    var results = [];
+    for(var i = 0; i < keys.length; i++){
+        if(callerId !== parseInt(keys[i])){
+            var dist = this.getDistanceById(callerId, keys[i]);
+            if(dist <= distance){
+                var item = this.getAllById(keys[i]);
+                item['distance'] = dist;
+                results.push(item);
+            }
+        }
+    }
+    return (results.length) ? results:undefined;
+}
+
 Arbiter.prototype.getDistanceById = function(callerId, targetId){
     if(callerId === undefined || targetId === undefined){
         return;
