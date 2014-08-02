@@ -9,8 +9,13 @@ var Arbiter = function(ObjectContainer){
 };
 
 Arbiter.prototype = {};
-Arbiter.prototype.addObject = function(id, x, y){
+
+//omit is a list of object ids for this object to ignore when checking ranges
+Arbiter.prototype.addObject = function(id, x, y, omit){
     this.locations[id] = [x, y];
+    if(omit !== undefined){
+        this.locations[id].push(omit);
+    }
     this.checkDistance(id);
     this.length = Object.keys(this.locations).length;
 };
