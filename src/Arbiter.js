@@ -181,9 +181,9 @@ Arbiter.prototype.getById = function(id){
 Arbiter.prototype.getAllById = function(id){
     if(id !== undefined && this.locations[id]){
         return {
-            'id': id,
-            'coords': this.getById(id),
-            'object': this.objects[id]
+            id: id,
+            coords: this.getById(id),
+            object: this.objects[id]
         };
     }
 };
