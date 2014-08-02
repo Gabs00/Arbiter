@@ -163,13 +163,22 @@ Arbiter.prototype.getByDistanceX = function(callerId, distance){
 };
 
 Arbiter.prototype.getDistanceById = function(callerId, targetId){
-    if(callerId === undefined || targetId === undefined){
+    if(callerId === undefined || targetId === undefined || !this.locations[targetId]){
         return;
     }
-    else if(!this.locations[callerId] || !this.locations[targetId]){
-        return;
+    var caller;
+    //If the caller does not send an id, it must send a an array with its coords
+    if(Array.isArray(callerId)){
+            caller = callerId;
+    } else {
+        caller = this.locations[callerId];
+        if(!caller){
+            return;
+        }
     }
-    return Arbiter.getDistance(this.locations[callerId], this.locations[targetId]);
+
+
+    return Arbiter.getDistance(caller, this.locations[targetId]);
 };
 
 Arbiter.prototype.getById = function(id){
