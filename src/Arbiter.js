@@ -174,7 +174,7 @@ Arbiter.prototype.alertObjects = function(alertList, id1,id2){
 };
 
 Arbiter.prototype.getByDistanceX = function(callerId, distance){
-    if(callerId === undefined || distance === undefined || this.locaitons[callerId] === undefined){
+    if(callerId === undefined || distance === undefined || this.locations[callerId] === undefined){
         return;
     }
     var keys = Object.keys(this.locations);
