@@ -205,9 +205,9 @@ Arbiter.prototype.getAll = function(){
     var result = [];
     for(var i = 0; i < ids.length; i++){
         var item = {};
-        item['id'] = ids[i];
-        item['coords'] = this.locations[i];
-        item['object'] = this.objects[i];
+        item.id = ids[i];
+        item.coords = this.locations[i];
+        item.object = this.objects[i];
         result.push(item);
     }
     return result;
