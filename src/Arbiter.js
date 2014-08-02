@@ -79,7 +79,7 @@ Arbiter.prototype.checkDistance = function(id){
         var tgKeys = Object.keys(this.locations);
         if(coords[2]){
             omit = coords[2];
-            tgKeys = filter(tgKeys, function(v){
+            tgKeys = Arbiter._filter(tgKeys, function(v){
                 v = parseInt(v);
                 for(var i = 0; i < omit.length; i++){
                     if(typeof omit[i] === 'function'){
@@ -251,8 +251,16 @@ Arbiter.prototype.getAll = function(){
     }
     return result;
 };
+Arbiter._valueCheck = function(val){
+    if(val === undefined){
+        return false;
+    }
+    else {
+        return true;
+    }
+};
 //truth test is a callback
-function filter(array, truthtest){
+Arbiter._filter = function(array, truthtest){
     var results = [];
     array.forEach(function(v,i,c){
         if(truthtest(v,i,c)){
@@ -260,4 +268,4 @@ function filter(array, truthtest){
         }
     });
     return results;
-}
+};
