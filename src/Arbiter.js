@@ -37,11 +37,11 @@ Arbiter.prototype.listen = function(){
     if(this.queue.length > 0){
         this.processed++;
         var item = this.queue.shift();
-        if(item['add-range']){
-            this.addRanges(item['id'], item['add-range']);
+        if(item.addRange){
+            this.addRanges(item.id, item.addRange);
         }
-        if(item['location']){
-            this.addObject(item['id'], item['location'][0], item['location'][1]);
+        if(item.location){
+            this.addObject(item.id, item.location[0], item.location[1]);
         }
     }
     var self = this;
@@ -184,7 +184,7 @@ Arbiter.prototype.getByDistanceX = function(callerId, distance){
             var dist = this.getDistanceById(callerId, keys[i]);
             if(dist <= distance){
                 var item = this.getAllById(keys[i]);
-                item['distance'] = dist;
+                item.distance = dist;
                 results.push(item);
             }
         }
