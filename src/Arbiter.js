@@ -19,7 +19,7 @@ Arbiter.prototype.addObject = function(id, x, y, omit){
     if(omit !== undefined && Array.isArray(omit)){
         this.locations[id].push(omit);
     }
-    
+
     this.checkDistance(id);
     this.length = Object.keys(this.locations).length;
 
@@ -74,9 +74,28 @@ Arbiter.prototype.checkDistance = function(id){
         var coords = this.locations[id];
         var x = coords[0];
         var y = coords[1];
+        var omit;
+        
         var tgKeys = Object.keys(this.locations);
+        if(coords[2]){
+            omit = coords[2];
+            tgKeys = filter(tgKeys, function(v){
+                v = parseInt(v);
+                for(var i = 0; i < omit.length; i++){
+                    if(typeof omit[i] === 'function'){
+                        if(omit[i](v)){
+                            return false;
+                        }
+                    } else if(v === omit[i] || id === omit[i]){
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
             //for all coordinates in locations
         for(var i = 0; i < tgKeys.length; i++){
+
             if(id !== parseInt(tgKeys[i])){
                 var target = this.locations[tgKeys[i]];
                 var x2 = target[0];
@@ -232,3 +251,13 @@ Arbiter.prototype.getAll = function(){
     }
     return result;
 };
+//truth test is a callback
+function filter(array, truthtest){
+    var results = [];
+    array.forEach(function(v,i,c){
+        if(truthtest(v,i,c)){
+            results.push(v);
+        }
+    });
+    return results;
+}
