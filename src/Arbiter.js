@@ -6,22 +6,22 @@ var Arbiter = function(ObjectContainer){
     this.queue = [];
     this._MAX = 0;
     this.processed = 0;
-}
+};
 
 Arbiter.prototype = {};
 Arbiter.prototype.addObject = function(id, x, y){
     this.locations[id] = [x, y];
     this.checkDistance(id);
     this.length = Object.keys(this.locations).length;
-}
+};
 Arbiter.prototype.removeObject = function(id){
     delete this.locations[id];
     this.length--;
-}
+};
 
 Arbiter.prototype.updateLocation = function(obj){
     this.queue.push(obj);
-}
+};
 Arbiter.prototype.listen = function(){
     if(this.queue.length > 0){
         this.processed++;
@@ -37,7 +37,7 @@ Arbiter.prototype.listen = function(){
     setTimeout(function(){
         self.listen();
     }, 100);
-}
+};
 Arbiter.prototype.addRanges = function(id, ranges){
     /*
         ranges = [[min, max, functionName]]
@@ -91,7 +91,7 @@ Arbiter.prototype.checkDistance = function(id){
                 }
             }
         }
-}
+};
 Arbiter.prototype.getMin = function(dist){
     dist = Math.round(dist/100)*100;
     var minKeys = Object.keys(this.ranges);
@@ -102,8 +102,8 @@ Arbiter.prototype.getMin = function(dist){
             min.push(v);
         }
     });
-    return this.getMax(dist,min)
-}
+    return this.getMax(dist,min);
+};
 
 Arbiter.prototype.getMax = function(dist, min){
     var toAlert = [];
@@ -118,7 +118,7 @@ Arbiter.prototype.getMax = function(dist, min){
         });
     });
     return toAlert;
-}
+};
 
 Arbiter.prototype.alertObjects = function(alertList, id1,id2){
     
@@ -141,7 +141,7 @@ Arbiter.prototype.alertObjects = function(alertList, id1,id2){
             }
         }
     }
-}
+};
 
 Arbiter.prototype.getByDistanceX = function(callerId, distance){
     if(callerId === undefined || distance === undefined || this.locaitons[callerId] === undefined){
@@ -160,7 +160,7 @@ Arbiter.prototype.getByDistanceX = function(callerId, distance){
         }
     }
     return (results.length) ? results:undefined;
-}
+};
 
 Arbiter.prototype.getDistanceById = function(callerId, targetId){
     if(callerId === undefined || targetId === undefined){
@@ -170,13 +170,13 @@ Arbiter.prototype.getDistanceById = function(callerId, targetId){
         return;
     }
     return Arbiter.getDistance(this.locations[callerId], this.locations[targetId]);
-}
+};
 
 Arbiter.prototype.getById = function(id){
     if(id !== undefined && this.locations[id]){
         return this.locations[id];
     }
-}
+};
 
 Arbiter.prototype.getAllById = function(id){
     if(id !== undefined && this.locations[id]){
@@ -184,9 +184,9 @@ Arbiter.prototype.getAllById = function(id){
             'id': id,
             'coords': this.getById(id),
             'object': this.objects[id]
-        }
+        };
     }
-}
+};
 
 Arbiter.getDistance = function(coord1, coord2){
     var x= coord1[0] - coord2[0];
@@ -194,11 +194,11 @@ Arbiter.getDistance = function(coord1, coord2){
     return Math.floor(
         Math.sqrt(Math.pow(x,2) + Math.pow(y,2))
     );
-}
+};
 Arbiter.maxDiff = function(p1, p2, MAX){
     var test = (p1 >= p2) ? p1-p2:p2-p1;
     return test < MAX;
-}
+};
 
 Arbiter.prototype.getAll = function(){
     var ids = Object.keys(this.locations);
@@ -211,4 +211,4 @@ Arbiter.prototype.getAll = function(){
         result.push(item);
     }
     return result;
-}
+};
